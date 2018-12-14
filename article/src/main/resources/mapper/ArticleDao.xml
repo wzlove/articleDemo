@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.walter.article.dao.mapper.ArticleDao">
+    <select id="getDatas" resultType="com.walter.article.model.Mysql.ArticleUrl">
+        SELECT * FROM urls
+        where flag=0
+    </select>
+    <select id="getDatasByLimit" resultType="com.walter.article.model.Mysql.ArticleUrl" parameterType="Integer">
+        SELECT * FROM urls
+        where flag=0
+        limit #{n},100
+    </select>
+    <insert id="saveData" parameterType="com.walter.article.model.Mysql.ArticleUrl">
+        insert into urls values (null,#{url},0,#{date},#{page})
+    </insert>
+    <select id="getDataByHref" parameterType="String" resultType="boolean">
+        SELECT count(*) FROM urls
+        where flag=0
+        and url=#{href}
+    </select>
+    <update id="changeFlag" parameterType="String">
+        UPDATE urls SET flag=1 where url=#{href};
+    </update>
+</mapper>
